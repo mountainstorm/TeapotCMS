@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TeapotApp" ng-controller="LoginController">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title ng-bind="site.title + ' | admin'"></title>
+
+    <!-- Material css -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- admin css -->
+    <link rel="stylesheet" href="admin.css">
+  </head>
+  <body layout="row" class="shield" ng-cloak>
+
+    <md-card>
+      <md-content id="clef-login">
+      </md-content>
+    </md-card>
+
+    <script src="https://npmcdn.com/api-check@latest/dist/api-check.js"></script>
+
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+
+    <!-- Angular Material js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.js"></script>
+
+    <!-- oauth setup -->
+    <script>
+      var app = angular.module('TeapotApp', ['ngMaterial'])
+
+      /* configure themes */
+      app.config(function ($mdThemingProvider, $httpProvider) {
+        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
+        $mdThemingProvider.theme('default')
+          .primaryPalette('blue', {
+              'default': 'A200'
+          })
+      })
+
+      app.controller('LoginController', function ($scope, $http, $compile) {
+          $http.get('api/v1/site').then(function (response) {
+            /* angular basically can't have scipt tagsin templates
+             * so we'll do this - so we'll do it the old fasioned way */
+            var site = response.data
+            var script = document.createElement('script')
+            script.setAttribute('class', 'clef-button')
+            script.setAttribute('src', 'https://clef.io/v3/clef.js')
+            script.setAttribute('data-app-id', site.oauth.appid)
+            script.setAttribute('data-redirect-url', site.oauth.redirect)
+            script.setAttribute('data-state', site.oauth.state)
+            script.setAttribute('data-type', 'login')
+            script.setAttribute('data-embed', 'true')
+            document.getElementById('clef-login').appendChild(script)
+        })
+      })
+    </script>    
+  </body>
+</html>

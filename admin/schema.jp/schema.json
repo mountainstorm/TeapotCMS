@@ -1,0 +1,221 @@
+{
+    "collections": [
+        { "title": "Events", "icon": "date_range", "form": "events/0" },
+        { "title": "Albums", "icon": "album", "form": "albums/0" },
+        { "title": "Artwork", "icon": "camera_roll", "form": "artwork/0" },
+        { "title": "Composer", "icon": "music_note", "form": "composer/0" },
+        { "title": "Producer", "icon": "mic", "form": "producer/0" },
+        { "title": "Contact", "icon": "mail", "form": "contact/0" },
+        { "title": "Press", "icon": "format_quote", "form": "press/0" },
+
+        { "title": "Settings", "icon": "settings", "form": "settings/0", "bottom": true}
+    ],
+
+
+    "events/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "events",
+            "type": "array",
+            "templateOptions": {
+                "label": "Events",
+                "fields": [
+                    {
+                        "key": "date",
+                        "type": "date",
+                        "templateOptions": { "label": "Date of the event", "required": true }
+                    },
+                    {
+                        "key": "location",
+                        "type": "textarea",
+                        "templateOptions": { "label": "Location/Details", "required": true }
+                    },
+                    {
+                        "key": "link",
+                        "type": "input",
+                        "templateOptions": { "label": "Link for more info" }
+                    }
+                ]
+            }
+        },
+        {
+            "key": "background",
+            "type": "image",
+            "templateOptions": { "label": "Background image", "required": true }
+        }
+    ],
+
+
+    "albums/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "albums",
+            "type": "array",
+            "templateOptions": {
+                "label": "Albums",
+                "fields": [
+                    {
+                        "key": "title",
+                        "type": "input",
+                        "templateOptions": { "label": "Album name", "required": true }
+                    },
+                    {
+                        "key": "description",
+                        "type": "textarea",
+                        "templateOptions": { "label": "Description/Track list", "required": true }
+                    },
+                    {
+                        "key": "price",
+                        "type": "input",
+                        "templateOptions": { "label": "Price" }
+                    },
+                    {
+                        "key": "link",
+                        "type": "input",
+                        "templateOptions": { "label": "Buy link" }
+                    },
+                    {
+                        "key": "image",
+                        "type": "image",
+                        "templateOptions": { "label": "Album cover" }
+                    }
+                ]
+            }
+        }
+    ],
+
+
+    "artwork/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "gallery",
+            "type": "array",
+            "templateOptions": {
+                "label": "Gallery",
+                "fields": [
+                    {
+                        "key": "image",
+                        "type": "image",
+                        "templateOptions": { "label": "Image" }
+                    }
+                ]
+            }
+        },
+        {
+            "key": "background",
+            "type": "image",
+            "templateOptions": { "label": "Background image", "required": true }
+        }        
+    ],
+
+
+    "composer/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "description",
+            "type": "textarea",
+            "templateOptions": { "label": "Description" }
+        },
+        {
+            "key": "background",
+            "type": "image",
+            "templateOptions": { "label": "Background image", "required": true }
+        }        
+    ],
+
+
+    "producer/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "description",
+            "type": "textarea",
+            "templateOptions": { "label": "Description" }
+        },
+        {
+            "key": "background",
+            "type": "image",
+            "templateOptions": { "label": "Background image", "required": true }
+        }        
+    ],
+
+
+    "contact/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "description",
+            "type": "textarea",
+            "templateOptions": { "label": "Description" }
+        }       
+    ],
+
+
+    "press/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Title", "required": true }
+        },
+        {
+            "key": "quotes",
+            "type": "array",
+            "templateOptions": {
+                "label": "Quotes",
+                "fields": [
+                    {
+                        "key": "quote",
+                        "type": "textarea",
+                        "templateOptions": { "label": "Quote", "required": true }
+                    },
+                    {
+                        "key": "author",
+                        "type": "input",
+                        "templateOptions": { "label": "Authors", "required": true }
+                    }
+                ]
+            }
+        }       
+    ],
+
+
+    "settings/*": [
+        {
+            "key": "title",
+            "type": "input",
+            "templateOptions": { "label": "Site title", "required": true }
+        },
+        {
+            "key": "description",
+            "type": "input",
+            "templateOptions": { "label": "Site description", "required": true }
+        },
+        {
+            "key": "image",
+            "type": "image",
+            "templateOptions": { "label": "Site image", "required": true }
+        }
+    ]
+}

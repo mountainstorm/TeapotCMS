@@ -1,0 +1,26 @@
+<div>
+   <h3 class="md-subhead">{{to.label}}</h3>
+   <md-card ng-repeat="element in model[options.key]" ng-init="fields = copyFields(to.fields)">
+    <md-card-content>
+      <formly-form fields="fields"
+                   model="element"
+                   form="form">
+      </formly-form>
+    </md-card-content>
+
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button class="md-icon-button" ng-click="model[options.key].splice($index, 1)">
+        <md-icon>remove_circle</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="addNew()">
+        <md-icon>add_circle</md-icon>
+      </md-button>
+    </md-card-actions>
+  </md-card>
+
+  <md-content layout="row" layout-align="start center" ng-if="!model[options.key].length">
+    <md-button class="md-icon-button" ng-click="addNew()">
+      <md-icon>add_circle</md-icon>
+    </md-button>
+  </md-content>
+</div>

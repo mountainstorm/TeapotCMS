@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="UIController">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title ng-bind="site.title + ' | admin'"></title>
+
+    <!-- Material css -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- admin css -->
+    <link rel="stylesheet" href="admin.css">
+  </head>
+  <body layout="row" ng-cloak>
+    <md-sidenav class="md-sidenav-left md-whiteframe-1dp" 
+                layout="column"
+                md-component-id="left" 
+                md-is-locked-open="$mdMedia('gt-sm')">
+
+      <!-- toolbar heading -->
+      <header>
+        <img ng-src="api/v1/attachments/{{site.image}}">
+        <div class="shield">
+          <h1 class="md-title" ng-bind="site.title"></h1>
+        </div>
+      </header>
+      <md-toolbar class="md-padding">
+        <div layout="row">
+          <md-button class="md-icon-button" 
+                     ng-click="openFrontend($route.current.scope.model.uri)"
+                     ng-disabled="!$route.current.scope.model.uri.length">
+            <md-icon>link</md-icon>
+          </md-button>
+          <h2 class="md-subhead" ng-bind="$route.current.scope.model.title"></h2>
+        </div>
+      </md-toolbar> 
+
+      <!-- toolbar buttons -->
+      <div layout="row" layout-align="center center">
+        <md-button class="md-primary" ng-click="openFrontend()">
+          <md-icon>home</md-icon>
+          <div>Home</div>
+        </md-button>
+        <md-button class="md-primary"
+                   ng-click="$route.current.scope.save()"
+                   ng-disabled="!$route.current.scope.saveRequired || $route.current.scope.form.$invalid">
+          <md-icon>save</md-icon>
+          <div>Save</div>
+        </md-button>
+      </div>
+
+      <md-divider></md-divider>
+      
+      <!-- main collections menu -->
+      <md-list class="collection" ng-cloak>
+        <md-list-item ng-class="{active: current == collection}"
+                      ng-click="goToCollection(collection.form, $event)"
+                      ng-repeat="collection in site.collections|filter:topCollection">
+          <md-icon>{{ collection.icon }}</md-icon>
+          <p>{{ collection.title }}</p>
+        </md-list-item>
+      </md-list>
+
+      <!-- bottom colelctions menu -->
+      <md-divider></md-divider>
+      <md-list ng-cloak>
+        <md-list-item ng-class="{active: current == collection}"
+                      ng-click="goToCollection(collection.form, $event)"
+                      ng-repeat="collection in site.collections|filter:{bottom: true}">
+          <md-icon>{{ collection.icon }}</md-icon>
+          <p>{{ collection.title }}</p>
+        </md-list-item>
+        <md-list-item ng-click="goToCollection('_logout', $event)">
+          <md-icon class="logout">chevron_left</md-icon>
+          <p>Logout</p>
+        </md-list-item>
+      </md-list>
+    </md-sidenav>
+
+
+    <div id="contentPane">
+      <!-- progress indicator; load/save etc-->
+      <div class="progress-container">
+        <md-progress-linear md-mode="buffer"
+                            ng-show="progress > 0 && progress < 100"
+                            value="0" md-buffer-value="30" class="md-warn">
+        </md-progress-linear>
+      </div>
+
+      <!-- main content - the form -->
+      <md-content layout="row" flex class="md-padding">
+        <div ng-view></div>
+      </md-content>
+
+      <!-- mini toolbar for when on mobile -->
+      <div id="miniToolbar"
+           layout="row" 
+           layout-align="center center"
+           class="md-whiteframe-1dp"
+           ng-show="!sidenav('left').isLockedOpen()">
+        <md-button class="md-primary"
+                   ng-click="sidenav('left').toggle()">
+          <md-icon>menu</md-icon>
+        </md-button>
+        <md-button class="md-primary" 
+                   ng-click="openFrontend($route.current.scope.model.uri)"
+                   ng-disabled="!$route.current.scope.model.uri.length">
+          <md-icon>link</md-icon>
+        </md-button>
+        <md-button class="md-primary"
+                   ng-click="$route.current.scope.save()"
+                   ng-disabled="!$route.current.scope.saveRequired || $route.current.scope.form.$invalid">
+          <md-icon>save</md-icon>
+        </md-button>
+      </div>        
+    </div>
+      
+    
+
+    <script src="https://npmcdn.com/api-check@latest/dist/api-check.js"></script>
+
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+
+    <!-- Angular Material js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.js"></script>
+
+    <!-- Angular formly -->
+    <script src="https://npmcdn.com/angular-formly@latest/dist/formly.js"></script>
+
+    <!-- components of our ui -->
+    <script src="admin.js"></script>
+    <script src="ui.js"></script>
+    <script src="form.js"></script>
+  </body>
+</html>

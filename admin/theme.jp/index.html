@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    {% set site = settings.0 %}
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Site specific css -->
+    <link rel="stylesheet" href="jp.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+
+    <!-- Header section -->
+    <section class="homepage" style="background-image: url({{ site.image|attachment() }});">
+      <h1>{{ site.title }}</h1>
+    </section>    
+
+    <!-- Events -->
+    {% set page = events.0 %}
+    <section style="background-image: url( {{ page.background|attachment }} );">
+      <div>
+        <div></div>
+        <div class="content">
+          <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+          <ul class="event-list">
+            {% for event in page.events %}
+              <li>
+                <div>{{ event.date|date('D jS M Y') }}</div><!-- XXX: only show future events -->
+                {% if event.link %}<a href="{{ event.link }}">{% endif %}
+                <h3>{{ event.location|nl2br }}</h3>
+                {% if event.link %}</a>{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div></div>
+        <div></div>
+      </div>
+    </section>
+
+    <!-- Albums -->
+    {% set page = albums.0 %}
+    <div class="albums">
+      <div>
+        {% for album in page.albums %}
+          <section style="background-image: url( {{ album.image|attachment }} );">
+            <div>
+              <div>{% if not loop.first %}<i class="fa fa-arrow-circle-left"></i>{% endif %}</div>
+              <div class="content">
+                <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+                <p>{{ album.description|nl2br }}</p>
+                <h4 class="buy">£{{ album.price }} <a href="{{ album.buy }}"><i class="fa fa-shopping-cart"></i></a></h4>
+              </div>
+              <div><img src="{{ album.image|attachment }}"></div>
+              <div>{% if not loop.last %}<i class="fa fa-arrow-circle-right"></i>{% endif %}</div>
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Artwork -->
+    {% set page = artwork.0 %}
+    <div class="artwork">
+      <div>    
+        <section style="background-image: url( {{ page.background|attachment }} );">
+          <div>
+            <div></div>
+            <div></div>
+            <div class="content">
+              <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+              <p>{{ page.description|nl2br }}</p>
+            </div>
+            <div><i class="fa fa-arrow-circle-right"></i></div>
+          </div>
+        </section>
+        {% for image in page.gallery %}
+          <section style="background-image: url( {{ image.image|attachment }} );">
+            <div>
+              <div><i class="fa fa-arrow-circle-left"></i></div>
+              <div class="content"></div>
+              <div></div>
+              <div>{% if not loop.last %}<i class="fa fa-arrow-circle-right"></i>{% endif %}</div>
+            </div>
+          </section>
+        {% endfor %}        
+      </div>
+    </div>
+
+    <!-- Composer -->
+    {% set page = composer.0 %}
+    <section style="background-image: url( {{ page.background|attachment }} );">
+      <div>
+        <div></div>
+        <div class="content">
+          <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+          <p>{{ page.description|nl2br }}</p>
+        </div>
+        <div></div>
+        <div></div>
+      </div>
+    </section>
+
+    <!-- Producer -->
+    {% set page = producer.0 %}
+    <section style="background-image: url( {{ page.background|attachment }} );">
+      <div>
+        <div></div>
+        <div></div>
+        <div class="content">
+          <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+          <p>{{ page.description|nl2br }}</p>
+        </div>
+        <div></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    {% set page = contact.0 %}
+    <section class="contact">
+      <div>
+        <div>
+          <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+          <p>{{ page.description }}</p>
+          <div class="social">
+            <a href="https://www.facebook.com/johnny.parry.3"><i class="fa fa-facebook-official"></i></a>
+            <a href="https://twitter.com/Johnny_Parry"><i class="fa fa-twitter"></i></a>
+            <a href="https://uk.linkedin.com/in/johnny-parry-1a769b53"><i class="fa fa-linkedin"></i></a>
+            <a href="#" data-toggle="modal" data-target="#emailForm"><i class="fa fa-envelope"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Press Quotes -->
+    {% set page = press.0 %}
+    <section class="press-quotes">
+      <div>
+        <div>
+          <h1 id="{{ page.title }}"><a href="#{{ page.title }}">{{ page.title }}</a></h1>
+          <div class="press">
+            {% for quote in page.quotes%}
+              <blockquote class="press-quote">
+                <p>{{ quote.quote}}</p>
+                <footer>{{ quote.author }}</footer>
+              </blockquote>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Masonry for the press clippings -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+
+    <script>
+      /* setup scrollers */
+      $('.fa.fa-arrow-circle-left').click(function () {
+        var $slider = $(this).parent().parent().parent().parent()
+        var delta = $slider.data('slide');
+        if (delta == undefined) {
+          delta = 0
+        }
+        delta -= 1
+        $slider.data('slide', delta)
+        $slider.animate({ marginLeft: '-' + delta + '00%' }, 500);
+      })
+      $('.fa.fa-arrow-circle-right').click(function () {
+        var $slider = $(this).parent().parent().parent().parent()
+        var delta = $slider.data('slide');
+        if (delta == undefined) {
+          delta = 0
+        }
+        delta += 1
+        $slider.data('slide', delta)
+        $slider.animate({ marginLeft: '-' + delta + '00%' }, 500);
+      })
+
+      /* enable masonry for press links */
+      $('.press').masonry({
+        // options
+        itemSelector: '.press-quote',
+        columnWidth: 100,
+        isFitWidth: true
+      })
+    </script>
+  </body>
+</html>

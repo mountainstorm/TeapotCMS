@@ -1,0 +1,11 @@
+attachments/*
+admin/attachments/*
+.DS_Store
+jp.css
+
+
+_index.html
+
+admin/backend.json/model.json
+
+index.php

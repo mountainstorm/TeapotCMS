@@ -1,0 +1,20 @@
+# prevent index listing of this directory
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # redirect empty path to admin.php
+    RewriteRule ^$ admin.php [L]
+
+    # redirect any css, js etc to admin.ui
+    RewriteRule ^([^/]+(?:\.css|\.js|\.jpg|\.png|\.html))$ admin.ui/$1 [L]
+
+    # redirect api requests to api.php
+    RewriteRule ^api/v1/(.*) api.php?route=$1 [L,QSA]
+
+    # anything else, except admin css/js (and the above redirects) = 404
+    RewriteCond %{REQUEST_URI} !(admin.ui/.*)$ [NC]
+	RewriteCond %{ENV:REDIRECT_STATUS} ^$    
+    RewriteRule ^(.*) - [R=404,L]
+</IfModule>

@@ -1,0 +1,9 @@
+<h3 class="md-subhead">{{to.label}}</h3>
+<md-button ng-click="newFile($event)"
+          class="form-image md-whiteframe-1dp"
+          aria-label="image">
+  <img ng-src="api/v1/attachments/{{model[options.key]}}" >
+  <input type="file" 
+         ng-model="model[options.key]"
+         onchange="angular.element(this).scope().fileSelected(this.files)">
+</md-button>
